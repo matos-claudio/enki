@@ -3,14 +3,14 @@ package br.com.enki.dao;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.transaction.Transactional;
 import javax.ws.rs.GET;
-import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import br.com.enki.vo.EmpresaVO;
 
-@Path("/empresa/v1")
 @ApplicationScoped
 public class EmpresaDAO implements IEmpresaDAO {
 	@GET
@@ -25,14 +25,14 @@ public class EmpresaDAO implements IEmpresaDAO {
 		return null;
 	}
 
+	@Transactional
 	@Override
-	public EmpresaVO insereEmpresa(EmpresaVO empresaVO) {
-		// TODO Auto-generated method stub
-		return null;
+	public Response insereEmpresaDAO(EmpresaVO empresaVO) {
+		EmpresaVO.persist(empresaVO);
+		return Response.ok(empresaVO).status(201).build();
 	}
 
 	@GET()
-	@Path("/query")
 	@Override
 	public EmpresaVO buscaEmpresa(String cnpj) {
 		return null;
